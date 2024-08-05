@@ -28,8 +28,6 @@ jobs:
           test-command: ./gradlew createSnapshotDebugUnitTestCoverageReport
       - android/run-tests:
           test-command: ./gradlew createSnapshotDebugAndroidTestCoverageReport
-      - android/save-gradle-cache:
-          cache-prefix: v1
       - store_artifacts:
           name: Store Test Results
           path: androidcommon_lib/build/outputs/androidTest-results
