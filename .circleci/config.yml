@@ -23,12 +23,11 @@ jobs:
       - android/start-emulator:
           avd-name: avd
           no-window: true
-          restore-gradle-cache-prefix: v2
           post-emulator-launch-assemble-command: ./gradlew assemble
       - android/run-tests:
-          test-command: ./gradlew testSnapshotDebugUnitTest
+          test-command: ./gradlew createSnapshotDebugUnitTestCoverageReport
       - android/run-tests:
-          test-command: ./gradlew connectedSnapshotDebugAndroidTest
+          test-command: ./gradlew createSnapshotDebugAndroidTestCoverageReport
       - android/save-gradle-cache:
           cache-prefix: v1
       - store_artifacts:
@@ -46,13 +45,6 @@ jobs:
       - run:
           name: Chmod Permissions
           command: sudo chmod +x gradlew
-      - android/restore-gradle-cache:
-          cache-prefix: v1
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - android/save-gradle-cache:
-          cache-prefix: v1
       - run:
           name: Build Common
           command: ./gradlew assembleSnapshotDebug
@@ -66,13 +58,6 @@ jobs:
       - run:
           name: Chmod Permissions
           command: sudo chmod +x gradlew
-      - android/restore-gradle-cache:
-          cache-prefix: v1
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - android/save-gradle-cache:
-          cache-prefix: v1
       - run:
           name: Publish library
           command: ./gradlew publishSnapshotDebugPublicationToODKXAndroidCommonRepository
