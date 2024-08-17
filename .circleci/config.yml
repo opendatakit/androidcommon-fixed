@@ -28,10 +28,9 @@ jobs:
           test-command: ./gradlew createSnapshotDebugUnitTestCoverageReport
       - android/run-tests:
           test-command: ./gradlew createSnapshotDebugAndroidTestCoverageReport
-      - store_artifacts:
-          name: Store Test Results
+      - store_test_results:
           path: androidcommon_lib/build/outputs/androidTest-results
-      - store_artifacts:
+      - store_test_results:
           name: Store Test Reports
           path: androidcommon_lib/build/reports
 
