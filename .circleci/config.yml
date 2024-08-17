@@ -95,6 +95,9 @@ workflows:
       - deploy:
           requires:
             - test
+          filters:
+            branches:
+              - update-jdk11
       - trigger-children:
           requires:
             - deploy
