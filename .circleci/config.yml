@@ -72,14 +72,14 @@ jobs:
       - run:
           name: Trigger Survey pipelines
           command: |
-            curl --location --request POST "https://circleci.com/api/v2/project/github/$CIRCLE_USERNAME/survey/pipeline" \
+            curl --location --request POST "https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/survey/pipeline" \
               --header 'Content-Type: application/json' \
               -u "${API_TOKEN}:" \
               --data "{\"branch\":\"$CIRCLE_BRANCH\"}" \
       - run:
           name: Trigger Tables pipeline
           command: |
-            curl --location --request POST "https://circleci.com/api/v2/project/github/$CIRCLE_USERNAME/tables/pipeline" \
+            curl --location --request POST "https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/tables/pipeline" \
               --header 'Content-Type: application/json' \
               -u "${API_TOKEN}:" \
               --data "{\"branch\":\"$CIRCLE_BRANCH\"}" \
@@ -97,8 +97,12 @@ workflows:
             - test
           filters:
             branches:
-              only:
-                - update-jdk11
+                only:
+                    - upgrade-jdk11
       - trigger-children:
           requires:
             - deploy
+          filters:
+             branches:
+                only:
+                    - upgrade-jdk11
